@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- seo meta code -->
+    <title>Medalla BAC Calculator</title>
+		<meta name="description" content="Codetrotters Fellow Summer 2017 Challenge 1" />
+		<meta name="keywords" content="codetrotters, fellow" />
+		<meta name="author" content="Arturo Santiago-Rivera" />
+		<meta name="designer" content="Arturo Santiago-Rivera"/>
+		<!-- css libraries -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="screen" title="Bootstrap v3.3.7" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" title="" />
+		<script>
+			function solveBAC(form) {
+				var nb = eval(form.numbeers.value);
+				var lbs = eval(form.pounds.value);
+				var sex = form.mw.value;
+				var hrs = eval(form.hours.value);
+				var err = 'error'
+
+				// formula: %BAC = (A x 5.14 / W x r) – (.015 x H)
+
+				var A = nb * 12 * .045;
+				var W = lbs;
+				if (sex == 'w') {
+					var r = 0.66;
+				}
+				else if (sex == 'm') {
+					var r = 0.73;
+				}
+				else {
+					r = err;
+				}
+				var H = hrs;
+
+				var pcn = (A * 5.14 / W * r) - (.015 * H);
+
+				if (pcn == 'NaN') {
+					var elPcn = document.getElementsByName('bacpcn');
+					elPcn.textcontent = err;
+				} else {
+					form.bacpcn.value = pcn.toFixed(4) + '%';
+				}
+			}
+		</script>
+  </head>
+  <body>
+    <header>
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <img alt="Medalla Logo" src="img/medalla-logo.jpeg" />
+			      <p class="navbar-text">BAC Calculator - v1.0.112216</p>
+			    </div>
+			  </div>
+			</nav>
+		</header>
+    <main>
+			<form method=post name=bacform>
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 main-box">
+							<div class="row">
+	              <div class="col-xs-12" id="display">
+	                <input type=text name=bacpcn placeholder="0.00%">
+	              </div>
+	            </div>
+	            <div class="row">
+	              <div class="col-xs-12" id="separator">
+	                <p>Medalla Beer Blood Alcohol Content Calculator</p>
+	              </div>
+	            </div>
+	            <div class="row">
+	              <div class="col-xs-6 text-panel">
+									<p id="beers">Amount Drinked Beers</p>
+	          		</div>
+								<div class="col-xs-6 input-panel">
+									<input type="text" class="form-control" placeholder="Input Beers Qty." name="numbeers">
+								</div>
+	        		</div>
+							<div class="row">
+								<div class="col-xs-6 text-panel">
+									<p id="weight">Your Weight in Pounds</p>
+								</div>
+								<div class="col-xs-6 input-panel">
+									<input type="text" class="form-control" placeholder="Input Weight" name="pounds">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 text-panel">
+									<p id="weight">Your Gender</p>
+								</div>
+								<div class="col-xs-6 input-panel">
+									<input type="text" class="form-control" placeholder="Input M or W" name="mw">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 text-panel" id="last-text-panel">
+									<p id="time">Total Hours Drinking</p>
+								</div>
+								<div class="col-xs-6 input-panel" id="last-input-panel">
+									<input type="text" class="form-control" placeholder="Input Drinking Hours" name="hours">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5" id="calculate-btn">
+							<input name=bac class="btn btn-default" type="button" value="Calculate %" onClick="javascript:solveBAC(this.form)">
+						</div>
+					</div>
+				</div>
+			</form>
+    </main>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- scripts -->
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
