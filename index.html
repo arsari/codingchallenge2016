@@ -19,31 +19,25 @@
 				var lbs = eval(form.pounds.value);
 				var sex = form.mw.value;
 				var hrs = eval(form.hours.value);
-				var err = 'error'
 
 				// formula: %BAC = (A x 5.14 / W x r) – (.015 x H)
 
-				var A = nb * 12 * .045;
+				var A = nb * 10 * .04;
 				var W = lbs;
-				if (sex == 'w') {
+				if (sex == 'w' || sex == 'W') {
 					var r = 0.66;
 				}
-				else if (sex == 'm') {
+				else if (sex == 'm' || sex == 'M') {
 					var r = 0.73;
 				}
 				else {
-					r = err;
+					r = 'error';
 				}
 				var H = hrs;
 
 				var pcn = (A * 5.14 / W * r) - (.015 * H);
 
-				if (pcn == 'NaN') {
-					var elPcn = document.getElementsByName('bacpcn');
-					elPcn.textcontent = err;
-				} else {
-					form.bacpcn.value = pcn.toFixed(4) + '%';
-				}
+				form.bacpcn.value = pcn.toFixed(4) + '%';
 			}
 		</script>
   </head>
@@ -53,7 +47,7 @@
 			  <div class="container-fluid">
 			    <div class="navbar-header">
 			      <img alt="Medalla Logo" src="img/medalla-logo.jpeg" />
-			      <p class="navbar-text">BAC Calculator - v1.0.112216</p>
+			      <p class="navbar-text">BAC Calculator - v1.1.113016</p>
 			    </div>
 			  </div>
 			</nav>
@@ -102,7 +96,7 @@
 									<p id="time">Total Hours Drinking</p>
 								</div>
 								<div class="col-xs-6 input-panel" id="last-input-panel">
-									<input type="text" class="form-control" placeholder="Input Drinking Hours" name="hours">
+									<input type="text" class="form-control" placeholder="Input Hours" name="hours">
 								</div>
 							</div>
 						</div>
@@ -113,6 +107,9 @@
 						<div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5" id="calculate-btn">
 							<input name=bac class="btn btn-default" type="button" value="Calculate %" onClick="javascript:solveBAC(this.form)">
 						</div>
+					</div>
+					<div class="row" id="note">
+						<p>Note: Calculatation is base on 10 fl oz Medalla Beer Can with 4.0% of alcohol per volume.</p>
 					</div>
 				</div>
 			</form>

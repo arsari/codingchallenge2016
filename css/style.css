@@ -12,14 +12,15 @@ nav.navbar.navbar-default {
 }
 
 img {
-    width: 51px;
+    width: 54px;
     float: left;
-    padding-top: 3px;
-		margin: 0 5px;
+    padding: 5px 0;
+    margin: 0;
 }
 
 p.navbar-text {
-    font-size: 16px;
+    font-size: 20px;
+    margin: 18px;
 }
 
 p.navbar-text.navbar-right {
@@ -38,9 +39,9 @@ div#display input {
     width: 100%;
     margin-top: 2px;
     font-size: 70px;
-		color: #ffffff;
+    color: #ffffff;
     text-align: right;
-		height: 75px;
+    height: 100px;
 }
 
 #separator {
@@ -71,11 +72,12 @@ div#display input {
 
 main .main-box {
     box-shadow: 0 0 25px #999999;
-		border-top-left-radius: 25px;
+    border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-		border-bottom-left-radius: 25px;
-		border-bottom-right-radius: 25px;
-		margin-bottom: 20px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 div #last-text-panel {
@@ -98,6 +100,12 @@ input.btn.btn-default {
     color: #ffffff;
 }
 
-div#calculate-btn {
+#calculate-btn {
     text-align: center;
+}
+
+#note > p {
+    margin: 25px 0px;
+    text-align: center;
+    color: red;
 }
