@@ -14,30 +14,38 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="screen" title="Bootstrap v3.3.7" />
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" title="" />
 		<script>
+
 			function solveBAC(form) {
-				var nb = eval(form.numbeers.value);
-				var lbs = eval(form.pounds.value);
+				var nb = Number(form.numbeers.value);
+				var lbs = Number(form.pounds.value);
 				var sex = form.mw.value;
-				var hrs = eval(form.hours.value);
+				var hrs = Number(form.hours.value);
 
 				// formula: %BAC = (A x 5.14 / W x r) – (.015 x H)
 
 				var A = nb * 10 * .04;
+
 				var W = lbs;
-				if (sex == 'w' || sex == 'W') {
-					var r = 0.66;
-				}
-				else if (sex == 'm' || sex == 'M') {
+
+				if (sex === 'm' || sex === 'M') {
 					var r = 0.73;
-				}
-				else {
+				}	else if (sex === 'w' || sex === 'W') {
+					var r = 0.66;
+				} else {
 					r = 'error';
 				}
+
 				var H = hrs;
 
 				var pcn = (A * 5.14 / W * r) - (.015 * H);
 
-				form.bacpcn.value = pcn.toFixed(4) + '%';
+				if (isNaN(pcn)) {
+					$("#bacpcn").val('Value Error!');
+				} else if (pcn < 0) {
+					$("#bacpcn").val("You're Fine!");
+				} else {
+						form.bacpcn.value = pcn.toFixed(3) + '%';
+				}
 			}
 		</script>
   </head>
@@ -47,7 +55,7 @@
 			  <div class="container-fluid">
 			    <div class="navbar-header">
 			      <img alt="Medalla Logo" src="img/medalla-logo.jpeg" />
-			      <p class="navbar-text">BAC Calculator - v1.1.113016</p>
+			      <p class="navbar-text">BAC Calculator - v1.2.120616</p>
 			    </div>
 			  </div>
 			</nav>
@@ -59,7 +67,7 @@
 	          <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 main-box">
 							<div class="row">
 	              <div class="col-xs-12" id="display">
-	                <input type=text name=bacpcn placeholder="0.00%">
+	                <input id="bacpcn" type=text name=bacpcn placeholder="0.00%">
 	              </div>
 	            </div>
 	            <div class="row">
@@ -109,7 +117,7 @@
 						</div>
 					</div>
 					<div class="row" id="note">
-						<p>Note: Calculatation is base on 10 fl oz Medalla Beer Can with 4.0% of alcohol per volume.</p>
+						<p>Note: Calculation is base on 10 fl oz Medalla Beer Can with 4.0% alcohol per volume.</p>
 					</div>
 				</div>
 			</form>
