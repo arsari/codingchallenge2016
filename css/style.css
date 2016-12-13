@@ -67,7 +67,7 @@ div#display input {
     text-align: center;
     padding: 15px 0;
     color: #ffffff;
-		font-size: 16px;
+    font-size: 15px;
 }
 
 main .main-box {
@@ -92,12 +92,13 @@ div #last-input-panel {
     margin: 9px 0;
     text-align: center;
     font-size: 18px;
-    height: 34px;
+    height: 33px;
 }
 
 input.btn.btn-default {
     background-color: #995bbe;
     color: #ffffff;
+    font-size: 18px;
 }
 
 #calculate-btn {
@@ -108,4 +109,10 @@ input.btn.btn-default {
     margin: 25px 0px;
     text-align: center;
     color: red;
+}
+
+
+main .phone-sides {
+    margin-left: -5px;
+    margin-right: -5px;
 }
