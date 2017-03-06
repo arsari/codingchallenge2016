@@ -26,24 +26,24 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<img alt="Medalla Logo" src="img/medalla-logo.jpeg" />
-					<p class="navbar-text">BAC Calculator | <span>v1.3.121916</span></p>
+					<p class="navbar-text">BAC Calculator | <span>v1.5.170306</span></p>
 				</div>
 			</div>
 		</nav>
 	</header>
 	<main>
-		<form method=post name=bacform>
+		<form method="post" name="bacform">
 			<div class="container">
 				<div class="row phone-sides">
 					<div class="main-box col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 						<div class="row">
 							<div class="col-xs-12" id="display">
-								<input id="bacpcn" type=text name=bacpcn placeholder="0.00%">
+								<input id="bacPcn" type="text" name="bacPcn" placeholder="0.000%">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12" id="separator">
-								<p>Medalla Beer Blood Alcohol Content Calculator</p>
+								<p>Medalla Beer Blood Alcohol Content Calculator (max x law 0.080)</p>
 							</div>
 						</div>
 						<div class="row">
@@ -64,7 +64,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-6 text-panel">
-								<p id="weight">Your Gender</p>
+								<p id="gender">Your Gender</p>
 							</div>
 							<div class="col-xs-6 input-panel">
 								<input type="text" class="form-control" placeholder="Input M or W" name="mw">
@@ -84,12 +84,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4" id="calculate-btn">
-						<input name=bac class="btn btn-default" type="button" value="Calculate %" onClick="javascript:solveBAC(this.form)">
+						<input name="bac" class="btn btn-default" type="button" value="Calculate %" onclick="javascript:solveBAC(this.form)">
 						<input class="btn btn-default" type="reset" value="Reset">
 					</div>
 				</div>
-				<div class="row" id="note">
-					<p>Note: Calculation is base on 10 fl oz Medalla Beer Can<br>with 4.0% alcohol per volume.</p>
+				<div class="row">
+					<div id="note" class="col-xs-12">
+						<p>Note: % calculation is base on 10 fl oz Medalla Beer Can<br />with 4.0% alcohol per volume.</p>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -105,9 +107,7 @@
 			var hrs = Number(form.hours.value);
 
 			// formula: %BAC = (A x 5.14 / W x r) – (.015 x H)
-
 			var A = nb * 10 * .04;
-
 			var W = lbs;
 
 			if (sex === 'm' || sex === 'M') {
@@ -119,15 +119,34 @@
 			}
 
 			var H = hrs;
-
 			var pcn = (A * 5.14 / W * r) - (.015 * H);
 
+			// placeholder input fields fixed
+			$('#bacPcn').focus(function() {
+			  var input = $(this);
+			  if (input.val() == input.attr('placeholder')) {
+			    input.val('');
+			  }
+			}).blur(function() {
+			  var input = $(this);
+			  if (input.val() == '' || input.val() == input.attr('placeholder')) {
+			    input.val(input.attr('placeholder'));
+			  }
+			}).blur();
+
+			// print result to display
 			if (isNaN(pcn)) {
-				$("#bacpcn").val('Input Error!');
-			} else if (pcn < 0) {
-				$("#bacpcn").val("You're Fine!");
+				$("#bacPcn").css("color", "yellow");
+				$('#bacPcn').val('Input Error!');
+			} else if (pcn < 0.01) {
+				$("#bacPcn").css("color", "lightgreen");
+				$('#bacPcn').val("You're Fine!");
+			} else if (pcn > 0.08) {
+				$("#bacPcn").css("color", "red");
+				form.bacPcn.value = pcn.toFixed(3) + '%';
 			} else {
-				form.bacpcn.value = pcn.toFixed(3) + '%';
+				$("#bacPcn").css("color", "#ffffff");
+				form.bacPcn.value = pcn.toFixed(3) + '%';
 			}
 		}
 	</script>
